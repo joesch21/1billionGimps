@@ -1,5 +1,5 @@
 import type { Chain } from "thirdweb";
-import { avalancheFuji, polygonAmoy, sepolia } from "./chains";
+import { bsc } from "./chains";
 
 export type Token = {
   tokenAddress: string;
@@ -22,11 +22,11 @@ export type SupportedTokens = {
  */
 export const SUPPORTED_TOKENS: SupportedTokens[] = [
   {
-    chain: avalancheFuji,
+    chain: bsc,
     tokens: [
       {
-        tokenAddress: "0x5425890298aed601595a70ab815c96711a31bc65",
-        symbol: "USDC",
+        tokenAddress: "0x092aC429b9c3450c9909433eB0662c3b7c13cF9A",
+        symbol: "GCC",
         icon: "/erc20-icons/usdc.png",
       },
       {
@@ -38,42 +38,13 @@ export const SUPPORTED_TOKENS: SupportedTokens[] = [
     ],
   },
 
-  {
-    chain: polygonAmoy,
-    tokens: [
-      {
-        tokenAddress: "0x41e94eb019c0762f9bfcf9fb1e58725bfb0e7582",
-        symbol: "USDC",
-        icon: "/erc20-icons/usdc.png",
-      },
-      {
-        tokenAddress: "0xbcf39d8616d15fd146dd5db4a86b4f244a9bc772",
-        symbol: "USDT",
-        icon: "/erc20-icons/usdt.png",
-      },
-    ],
-  },
+  
 
-  {
-    chain: sepolia,
-    tokens: [
-      {
-        tokenAddress: "0x1c7D4B196Cb0C7B01d743Fbc6116a902379C7238",
-        symbol: "USDC",
-        icon: "/erc20-icons/usdc.png",
-      },
-      {
-        tokenAddress: "0x36160274b0ed3673e67f2ca5923560a7a0c523aa",
-        symbol: "USDT",
-        icon: "/erc20-icons/usdt.png",
-      },
-    ],
-  },
+  
 ];
 
 export const NATIVE_TOKEN_ICON_MAP: { [key in Chain["id"]]: string } = {
-  1: "/native-token-icons/eth.png",
-  [sepolia.id]: "/native-token-icons/eth.png",
-  [avalancheFuji.id]: "/native-token-icons/avax.png",
-  [polygonAmoy.id]: "/native-token-icons/matic.png",
+  1: "/native-token-icons/GCC.png",
+  [bsc.id]: "/native-token-icons/bsc.png",
+  
 };
