@@ -206,7 +206,7 @@ function ProfileButton({
           </Box>
         </MenuItem>
         <MenuItem as={Link} href="/profile" _hover={{ textDecoration: "none" }}>
-          Profile {ensName ? `(${ensName})` : ""}
+          Your NFT {ensName ? `(${ensName})` : ""}
         </MenuItem>
         <MenuItem
           onClick={() => {
