@@ -15,7 +15,6 @@ import {
   MenuList,
   Image,
   useColorMode,
-  Text,
   IconButton,
 } from "@chakra-ui/react";
 import { blo } from "blo";
@@ -78,7 +77,7 @@ export function Navbar() {
             }
           }
         }
-
+  
         const wasAdded = await window.ethereum.request({
           method: 'wallet_watchAsset',
           params: {
@@ -91,7 +90,7 @@ export function Navbar() {
             },
           },
         });
-
+  
         if (wasAdded) {
           console.log('GCC token added to wallet!');
           alert('GCC token was added to your wallet.');
@@ -105,6 +104,7 @@ export function Navbar() {
       console.error("An error occurred while adding the token:", error);
     }
   }
+  
 
   return (
     <Box py="30px" px={{ base: "20px", lg: "50px" }} bg="black">
@@ -116,7 +116,6 @@ export function Navbar() {
             href="/"
             _hover={{ textDecoration: "none" }}
             color="gold"
-            fontWeight=""
             display={{ base: "none", md: "block" }}
           >
             GIMP MENU
@@ -125,10 +124,7 @@ export function Navbar() {
 
         {/* Icons for PancakeSwap, Add GCC Token, Gimporium, and YouTube */}
         <Flex direction="row" alignItems="center" mx="20px" gap="20px">
-          <Link
-            href="https://pancakeswap.finance/info/tokens/0x092aC429b9c3450c9909433eB0662c3b7c13cF9A"
-            isExternal
-          >
+          <Link href="https://pancakeswap.finance/info/tokens/0x092aC429b9c3450c9909433eB0662c3b7c13cF9A" isExternal>
             <Image src="/images/cake.png" alt="PancakeSwap Logo" width="30px" height="30px" />
           </Link>
 
@@ -141,7 +137,7 @@ export function Navbar() {
           />
 
           <Link href="https://gimporium.xyz/" isExternal>
-            <Box className="sparkle-wrapper" display="inline-flex" alignItems="center" justifyContent="center">
+            <Box display="inline-flex" alignItems="center" justifyContent="center">
               <Image
                 src="/images/IMG_7731.png"
                 alt="Gimporium Logo"
