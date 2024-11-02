@@ -49,16 +49,7 @@ export function ProfileMenu(props: Props) {
                 onClick={() => setSelectedCollection(item)}
               >
                 <Flex direction="row" gap="3">
-                  <Image
-                    src={item.thumbnailUrl || "/images/IMG_7731.png"}
-                    w="40px"
-                    rounded="8px"
-                    onError={(e) => {
-                      const target = e.target as HTMLImageElement;
-                      target.onerror = null; // Prevent infinite loop
-                      target.src = "/images/IMG_7731.png"; // Fallback image
-                    }}
-                  />
+                  <Image src={item.thumbnailUrl ?? ""} w="40px" rounded="8x" />
                   <Box my="auto">
                     <Text>{item.title ?? "Unknown collection"}</Text>
                   </Box>

@@ -52,16 +52,7 @@ export function AllNftsGrid() {
       count: pages[currentPageIndex].count,
     }
   );
-
-  // Filtering and reversing the NFTs
-  const filteredNFTs = (allNFTs ?? [])
-    .filter((item) => {
-      const id = parseInt(item.id.toString(), 10);
-      return !(id >= 0 && id <= 4); // Exclude NFTs with IDs 0, 1, 2, 3, and 4
-    })
-    .reverse(); // Reverse the order of the filtered NFTs
-
-  const len = filteredNFTs.length;
+  const len = allNFTs?.length ?? 0;
   const columns = useBreakpointValue({
     base: 1,
     sm: Math.min(len, 2),
@@ -74,8 +65,8 @@ export function AllNftsGrid() {
   return (
     <>
       <SimpleGrid columns={columns} spacing={4} p={4} mx="auto" mt="20px">
-        {filteredNFTs && filteredNFTs.length > 0 ? (
-          filteredNFTs.map((item) => (
+        {allNFTs && allNFTs.length > 0 ? (
+          allNFTs.map((item) => (
             <Box
               key={item.id}
               rounded="12px"
@@ -131,6 +122,16 @@ export function AllNftsGrid() {
           >
             <MdKeyboardDoubleArrowRight />
           </Button>
+          {/* <Select
+            w="80px"
+            onChange={(e) => setItemsPerPage(Number(e.target.value))}
+          >
+            {[20, 40, 60].map((item) => (
+              <option key={item} value={item}>
+                {item}
+              </option>
+            ))}
+          </Select> */}
         </Flex>
       </Box>
     </>

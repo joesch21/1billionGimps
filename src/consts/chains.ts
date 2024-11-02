@@ -1,11 +1,6 @@
-import { defineChain } from "thirdweb";
+import { bsc } from "thirdweb/chains";
 
 /**
  * All chains should be exported from this file
  */
-export {bsc} from "thirdweb/chains";
-
-/**
- * Define any custom chain using `defineChain`
- */
-export const example_customChain1 = defineChain(0.001); // don't actually use this
+export { bsc };
