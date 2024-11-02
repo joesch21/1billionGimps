@@ -72,7 +72,7 @@ export function Collection() {
             <TabList>
               <Tab>Listings ({listingsInSelectedCollection.length || 0})</Tab>
               <Tab>
-                All items{" "}
+                Select here to view All items{" "}
                 {supplyInfo
                   ? `(${(
                       supplyInfo.endTokenId -

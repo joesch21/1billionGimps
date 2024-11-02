@@ -5,7 +5,6 @@ export type NftContract = {
   address: string;
   chain: Chain;
   type: "ERC1155" | "ERC721";
-
   title?: string;
   description?: string;
   thumbnailUrl?: string;
@@ -13,14 +12,12 @@ export type NftContract = {
 };
 
 /**
- * Below is a list of all NFT contracts supported by your marketplace(s)
- * This is of course hard-coded for demo purpose
- *
- * In reality, the list should be dynamically fetched from your own data source
+ * Below is the list of the BSC NFT contract supported by your marketplace
  */
 export const NFT_CONTRACTS: NftContract[] = [
+ 
   {
-    address: "0xF09334a9027b263096b772b0F46D271E90b53F3E",
+    address: "0x4bA7161d0FAF245c0c8bA83890c121a3D9Fe3AC9",
     chain: bsc,
     title: "",
     thumbnailUrl:

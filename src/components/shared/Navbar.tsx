@@ -17,7 +17,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import { blo } from "blo";
-import { FaRegMoon } from "react-icons/fa";
+import { FaRegMoon, FaBars } from "react-icons/fa";
 import { FiUser } from "react-icons/fi";
 import { IoSunny } from "react-icons/io5";
 import {
@@ -34,21 +34,20 @@ export function Navbar() {
   const wallet = useActiveWallet();
   const { colorMode } = useColorMode();
   return (
-    <Box py="30px" px={{ base: "20px", lg: "50px" }}>
-      <Flex direction="row" justifyContent="space-between">
-        <Box my="auto">
+    <Box py="30px" px={{ base: "20px", lg: "50px" }} bg="black">
+      <Flex direction="row" justifyContent="space-between" alignItems="center">
+        <Flex direction="row" alignItems="center">
+          <FaBars size={30} color="gold" style={{ marginRight: "10px" }} />
           <Heading
             as={Link}
             href="/"
             _hover={{ textDecoration: "none" }}
-            bgGradient="linear(to-l, #7928CA, #FF0080)"
-            bgClip="text"
-            fontWeight="extrabold"
+            color="gold"
+            fontWeight=""
           >
-            {/* Replace this with your own branding */}
-            THIRDMART
+            NFT Trading Place
           </Heading>
-        </Box>
+        </Flex>
         <Box display={{ lg: "block", base: "none" }}>
           <ToggleThemeButton />
           {account && wallet ? (

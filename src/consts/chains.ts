@@ -1,17 +1,11 @@
 import { defineChain } from "thirdweb";
 
-export const bsc = /* @__PURE__ */ defineChain({
-  id: 56,
-  name: "BNB Smart Chain Mainnet",
-  nativeCurrency: {
-    name: "BNB Chain Native Token",
-    symbol: "BNB",
-    decimals: 18,
-  },
-  blockExplorers: [
-    {
-      name: "bscscan",
-      url: "https://bscscan.com",
-    },
-  ],
-});
+/**
+ * All chains should be exported from this file
+ */
+export {bsc} from "thirdweb/chains";
+
+/**
+ * Define any custom chain using `defineChain`
+ */
+export const example_customChain1 = defineChain(0.001); // don't actually use this
