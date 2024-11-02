@@ -15,6 +15,8 @@ import {
   MenuList,
   Image,
   useColorMode,
+  Text,
+  IconButton,
 } from "@chakra-ui/react";
 import { blo } from "blo";
 import { FaRegMoon, FaBars } from "react-icons/fa";
@@ -29,10 +31,81 @@ import {
 import type { Wallet } from "thirdweb/wallets";
 import { SideMenu } from "./SideMenu";
 
+// Constants for GCC token
+const tokenAddress = "0x092ac429b9c3450c9909433eb0662c3b7c13cf9a";
+const tokenSymbol = "GCC";
+const tokenDecimals = 18;
+const tokenImage = "https://storage.top100token.com/images/fe7c179d-bfa8-4d49-a460-ca87ca248167.webp";
+
 export function Navbar() {
   const account = useActiveAccount();
   const wallet = useActiveWallet();
   const { colorMode } = useColorMode();
+
+  // Function to add GCC Token to MetaMask
+  async function addTokenToMetaMask() {
+    try {
+      if (window.ethereum && window.ethereum.isMetaMask) {
+        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+        if (chainId !== '0x38') {
+          try {
+            await window.ethereum.request({
+              method: 'wallet_switchEthereumChain',
+              params: [{ chainId: '0x38' }],
+            });
+          } catch (switchError) {
+            if (switchError.code === 4902) {
+              await window.ethereum.request({
+                method: 'wallet_addEthereumChain',
+                params: [
+                  {
+                    chainId: '0x38',
+                    chainName: 'Binance Smart Chain',
+                    nativeCurrency: {
+                      name: 'Binance Coin',
+                      symbol: 'BNB',
+                      decimals: 18,
+                    },
+                    rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                    blockExplorerUrls: ['https://bscscan.com'],
+                  },
+                ],
+              });
+            } else {
+              console.error(switchError);
+              alert('Failed to switch to Binance Smart Chain. Please try again.');
+              return;
+            }
+          }
+        }
+
+        const wasAdded = await window.ethereum.request({
+          method: 'wallet_watchAsset',
+          params: {
+            type: 'ERC20',
+            options: {
+              address: tokenAddress,
+              symbol: tokenSymbol,
+              decimals: tokenDecimals,
+              image: tokenImage,
+            },
+          },
+        });
+
+        if (wasAdded) {
+          console.log('GCC token added to wallet!');
+          alert('GCC token was added to your wallet.');
+        } else {
+          alert('GCC token was not added to your wallet.');
+        }
+      } else {
+        alert('MetaMask is not installed. Please install it to use this feature.');
+      }
+    } catch (error) {
+      console.error("An error occurred while adding the token:", error);
+    }
+  }
+
   return (
     <Box py="30px" px={{ base: "20px", lg: "50px" }} bg="black">
       <Flex direction="row" justifyContent="space-between" alignItems="center">
@@ -44,10 +117,46 @@ export function Navbar() {
             _hover={{ textDecoration: "none" }}
             color="gold"
             fontWeight=""
+            display={{ base: "none", md: "block" }}
           >
-            NFT Trading Place
+            GIMP MENU
           </Heading>
         </Flex>
+
+        {/* Icons for PancakeSwap, Add GCC Token, Gimporium, and YouTube */}
+        <Flex direction="row" alignItems="center" mx="20px" gap="20px">
+          <Link
+            href="https://pancakeswap.finance/info/tokens/0x092aC429b9c3450c9909433eB0662c3b7c13cF9A"
+            isExternal
+          >
+            <Image src="/images/cake.png" alt="PancakeSwap Logo" width="30px" height="30px" />
+          </Link>
+
+          <IconButton
+            onClick={addTokenToMetaMask}
+            variant="outline"
+            colorScheme="yellow"
+            icon={<Image src="/images/Designer.png" alt="Add Token Logo" width="20px" height="20px" />}
+            aria-label="Add GCC Token to Wallet"
+          />
+
+          <Link href="https://gimporium.xyz/" isExternal>
+            <Box className="sparkle-wrapper" display="inline-flex" alignItems="center" justifyContent="center">
+              <Image
+                src="/images/IMG_7731.png"
+                alt="Gimporium Logo"
+                width="30px"
+                height="30px"
+                borderRadius="50%"
+              />
+            </Box>
+          </Link>
+
+          <Link href="https://www.youtube.com/@TradingNFTwithGCC/streams" isExternal>
+            <Image src="/images/youtube.jpg" alt="YouTube Logo" width="30px" height="30px" borderRadius="50%" />
+          </Link>
+        </Flex>
+
         <Box display={{ lg: "block", base: "none" }}>
           <ToggleThemeButton />
           {account && wallet ? (
