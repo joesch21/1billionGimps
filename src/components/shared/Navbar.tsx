@@ -42,68 +42,71 @@ export function Navbar() {
   const { colorMode } = useColorMode();
 
   // Function to add GCC Token to MetaMask
-  async function addTokenToMetaMask() {
-    try {
-      if (window.ethereum && window.ethereum.isMetaMask) {
-        const chainId = await window.ethereum.request({ method: 'eth_chainId' });
-        if (chainId !== '0x38') {
-          try {
+  // Function to add GCC Token to MetaMask
+async function addTokenToMetaMask() {
+  try {
+    if (window.ethereum && window.ethereum.isMetaMask) {
+      const chainId = await window.ethereum.request({ method: 'eth_chainId' });
+      if (chainId !== '0x38') {
+        try {
+          await window.ethereum.request({
+            method: 'wallet_switchEthereumChain',
+            params: [{ chainId: '0x38' }],
+          });
+        } catch (switchError: any) { // Use 'any' type for switchError here
+          if (switchError.code === 4902) {
             await window.ethereum.request({
-              method: 'wallet_switchEthereumChain',
-              params: [{ chainId: '0x38' }],
-            });
-          } catch (switchError) {
-            if (switchError.code === 4902) {
-              await window.ethereum.request({
-                method: 'wallet_addEthereumChain',
-                params: [
-                  {
-                    chainId: '0x38',
-                    chainName: 'Binance Smart Chain',
-                    nativeCurrency: {
-                      name: 'Binance Coin',
-                      symbol: 'BNB',
-                      decimals: 18,
-                    },
-                    rpcUrls: ['https://bsc-dataseed.binance.org/'],
-                    blockExplorerUrls: ['https://bscscan.com'],
+              method: 'wallet_addEthereumChain',
+              params: [
+                {
+                  chainId: '0x38',
+                  chainName: 'Binance Smart Chain',
+                  nativeCurrency: {
+                    name: 'Binance Coin',
+                    symbol: 'BNB',
+                    decimals: 18,
                   },
-                ],
-              });
-            } else {
-              console.error(switchError);
-              alert('Failed to switch to Binance Smart Chain. Please try again.');
-              return;
-            }
+                  rpcUrls: ['https://bsc-dataseed.binance.org/'],
+                  blockExplorerUrls: ['https://bscscan.com'],
+                },
+              ],
+            });
+          } else {
+            console.error(switchError);
+            alert('Failed to switch to Binance Smart Chain. Please try again.');
+            return;
           }
         }
-  
-        const wasAdded = await window.ethereum.request({
-          method: 'wallet_watchAsset',
-          params: {
-            type: 'ERC20',
-            options: {
-              address: tokenAddress,
-              symbol: tokenSymbol,
-              decimals: tokenDecimals,
-              image: tokenImage,
-            },
-          },
-        });
-  
-        if (wasAdded) {
-          console.log('GCC token added to wallet!');
-          alert('GCC token was added to your wallet.');
-        } else {
-          alert('GCC token was not added to your wallet.');
-        }
-      } else {
-        alert('MetaMask is not installed. Please install it to use this feature.');
       }
-    } catch (error) {
-      console.error("An error occurred while adding the token:", error);
+
+      const wasAdded = await window.ethereum.request({
+        method: 'wallet_watchAsset',
+        params: {
+          type: 'ERC20',
+          options: {
+            address: tokenAddress,
+            symbol: tokenSymbol,
+            decimals: tokenDecimals,
+            image: tokenImage,
+          },
+        } as any, // Add assertion here to bypass TypeScript's type check
+      });
+      ;
+
+      if (wasAdded) {
+        console.log('GCC token added to wallet!');
+        alert('GCC token was added to your wallet.');
+      } else {
+        alert('GCC token was not added to your wallet.');
+      }
+    } else {
+      alert('MetaMask is not installed. Please install it to use this feature.');
     }
+  } catch (error) {
+    console.error("An error occurred while adding the token:", error);
   }
+}
+
   
 
   return (
