@@ -21,7 +21,7 @@ import {
 } from "thirdweb/react";
 import { getContract, toEther } from "thirdweb";
 import { client } from "@/consts/client";
-import { getOwnedERC721s } from "@/extensions/getOwnedERC721s";
+import { getOwnedERC721s } from "@/extensions/getOwnedERC721s"; // Only import ERC721s function
 import { OwnedItem } from "./OwnedItem";
 import { getAllValidListings } from "thirdweb/extensions/marketplace";
 import { MARKETPLACE_CONTRACTS } from "@/consts/marketplace_contract";
@@ -54,17 +54,14 @@ export function ProfileSection(props: Props) {
     data,
     error,
     isLoading: isLoadingOwnedNFTs,
-  } = useReadContract(
-    selectedCollection.type === "ERC1155" ? getOwnedERC1155s : getOwnedERC721s,
-    {
-      contract,
-      owner: address,
-      requestPerSec: 50,
-      queryOptions: {
-        enabled: !!address,
-      },
-    }
-  );
+  } = useReadContract(getOwnedERC721s, {
+    contract,
+    owner: address,
+    requestPerSec: 50,
+    queryOptions: {
+      enabled: !!address,
+    },
+  });
 
   const chain = contract.chain;
   const marketplaceContractAddress = MARKETPLACE_CONTRACTS.find(
@@ -91,7 +88,6 @@ export function ProfileSection(props: Props) {
     : [];
   const columns = useBreakpointValue({ base: 1, sm: 2, md: 2, lg: 2, xl: 4 });
 
-  // Updated fetchNftAvatar function
   async function fetchNftAvatar() {
     try {
       const selectedCollection = NFT_CONTRACTS[0];
@@ -103,20 +99,14 @@ export function ProfileSection(props: Props) {
 
       const ownedNfts = await getOwnedERC721s({ contract, owner: address });
 
-      // Ensure that `metadata` and `image` exist before setting the avatar
-      if (
-        ownedNfts &&
-        ownedNfts.length > 0 &&
-        ownedNfts[0]?.metadata?.image
-      ) {
-        setNftAvatar(ownedNfts[0].metadata.image as string); // Set the first NFT image as avatar
+      if (ownedNfts && ownedNfts.length > 0 && ownedNfts[0]?.metadata?.image) {
+        setNftAvatar(ownedNfts[0].metadata.image as string);
       }
     } catch (error) {
       console.error("Error fetching NFTs for avatar:", error);
     }
   }
 
-  // Call fetchNftAvatar on component mount
   useEffect(() => {
     fetchNftAvatar();
   }, [address]);
@@ -125,11 +115,9 @@ export function ProfileSection(props: Props) {
     <Box px={{ lg: "50px", base: "20px" }}>
       <Flex direction={{ lg: "row", md: "column", sm: "column" }} gap={5}>
         <Box position="relative" w={{ lg: 150, base: 100 }} h={{ lg: 150, base: 100 }}>
-          {/* Frame background image */}
           <Img src="/images/4.png" alt="Frame" position="absolute" top={0} left={0} w="100%" h="100%" />
-          {/* NFT avatar image */}
           <Img
-            src={nftAvatar ?? "/images/Image.png"} // Set the default image if nftAvatar is not available
+            src={nftAvatar ?? "/images/Image.png"}
             alt="NFT Avatar"
             rounded="8px"
             position="absolute"
@@ -179,7 +167,7 @@ export function ProfileSection(props: Props) {
               {tabIndex === 0 ? (
                 <>
                   {data && data.length > 0 ? (
-                    data?.map((item) => (
+                    data.map((item) => (
                       <OwnedItem
                         key={item.id.toString()}
                         nftCollection={contract}
@@ -198,7 +186,7 @@ export function ProfileSection(props: Props) {
               ) : (
                 <>
                   {listings && listings.length > 0 ? (
-                    listings?.map((item) => (
+                    listings.map((item) => (
                       <Box
                         key={item.id}
                         rounded="12px"
