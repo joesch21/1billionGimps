@@ -13,6 +13,7 @@ import {
   Stack,
   StackDivider,
   Text,
+  Link,
 } from "@chakra-ui/react";
 
 // Import the list of NFT contracts (assuming you have this available in your code)
@@ -81,6 +82,18 @@ export default function Home() {
       </header>
 
       <Flex direction="column" align="center">
+        {/* Promotional Text */}
+        <Box mt="4" textAlign="center" padding="10px" maxWidth="750px">
+          <Text fontSize="lg" fontWeight="bold">
+            The largest Digital Art Collection is now absolutely free! All you need is tBNB to mint an NFT!
+          </Text>
+          <Text>
+            <Link href="https://www.bnbchain.org/en/testnet-faucet" color="purple.500" isExternal>
+              Get tBNB from the BNB Chain Testnet Faucet
+            </Link>.
+          </Text>
+        </Box>
+
         <Box mt="24px">
           <Card border="1px" maxW="90vw" mx="auto">
             <CardHeader textAlign="center">
