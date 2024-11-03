@@ -1,6 +1,6 @@
-import { bsc } from "thirdweb/chains";
+import { bscTestnet } from "thirdweb/chains";
 
 /**
  * All chains should be exported from this file
  */
-export { bsc };
+export {bscTestnet };

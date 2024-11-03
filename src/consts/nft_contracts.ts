@@ -1,5 +1,5 @@
 import type { Chain } from "thirdweb";
-import { bsc } from "./chains";
+import { bscTestnet } from "./chains";
 
 export type NftContract = {
   address: string;
@@ -17,8 +17,8 @@ export type NftContract = {
 export const NFT_CONTRACTS: NftContract[] = [
  
   {
-    address: "0x4bA7161d0FAF245c0c8bA83890c121a3D9Fe3AC9",
-    chain: bsc,
+    address: "0x36cda97E72911E85781486a5C182baeC87071d20",
+    chain: bscTestnet,
     title: "",
     thumbnailUrl:
       "https://d391b93f5f62d9c15f67142e43841acc.ipfscdn.io/ipfs/QmNgLCDjfeKYEPnds2Ti3o7PJiupztadsFSVXZ8f35Jc7S/16.png",
@@ -28,4 +28,4 @@ export const NFT_CONTRACTS: NftContract[] = [
 
 // (Optional) Set up the URL of where users can view transactions on
 // For example, below, we use Mumbai.polygonscan to view transactions on the Mumbai testnet.
-export const ETHERSCAN_URL = "https://bscscan.com"
+export const ETHERSCAN_URL = "https://bscTestnetcscan.com"

@@ -1,5 +1,5 @@
 import type { Chain } from "thirdweb";
-import { bsc } from "./chains";
+import { bscTestnet } from "./chains";
 
 export type Token = {
   tokenAddress: string;
@@ -24,7 +24,7 @@ export type SupportedTokens = {
  */
 export const SUPPORTED_TOKENS: SupportedTokens[] = [
   {
-    chain: bsc,
+    chain: bscTestnet,
     tokens: [
       {
         tokenAddress: "0x092aC429b9c3450c9909433eB0662c3b7c13cF9A",
@@ -47,6 +47,6 @@ export const SUPPORTED_TOKENS: SupportedTokens[] = [
  */
 export const NATIVE_TOKEN_ICON_MAP: { [key in Chain["id"]]: string } = {
   1: "/native-token-icons/GCC.png",
-  [bsc.id]: "/native-token-icons/bsc.png",
+  [bscTestnet.id]: "/native-token-icons/bsc.png",
   
 };

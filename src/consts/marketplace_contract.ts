@@ -1,5 +1,5 @@
 import type { Chain } from "thirdweb";
-import { bsc } from "./chains";
+import { bscTestnet } from "./chains";
 
 type MarketplaceContract = {
   address: string;
@@ -12,7 +12,7 @@ type MarketplaceContract = {
  */
 export const MARKETPLACE_CONTRACTS: MarketplaceContract[] = [
   {
-    address: "0x64e224c19611b302E06aAa7CC2D8aFEABE7cA648",
-    chain: bsc,
+    address: "0xBE937F713885768F0F903E62c0f5DD187b24915C",
+    chain: bscTestnet,
   }
 ];
